@@ -1,0 +1,27 @@
+name: sending email
+
+on:
+  push:
+    branches:
+      - mainX 
+  repository_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v4 # checkout the repository content to github runner
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' # install the python version needed
+          
+      - name: execute py script
+        env:
+          SENDER_MAIL: ${{ secrets.SENDER_MAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECEIVER_MAIL: ${{ secrets.RECEIVER_MAIL }}
+        run: python sendEmail.py
