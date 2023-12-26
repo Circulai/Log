@@ -2,6 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+from datetime import datetime
 
 
 def send_email(subject, body):
@@ -25,14 +26,13 @@ def send_email(subject, body):
 
 
 if __name__ == "__main__":
-    print("Running sendEmail.py as main...")
-    subject = "Database just updated"
-    with open("answers.json", "r") as f:
-        answers = f.read()
-    with open("visitsLog.json", "r") as f:
+    formatted_time = datetime.now().strftime("%m/%d/%Y %I:%M:%S %p")
+    subject = f"[Somone visited my website at {formatted_time}]"
+
+    with open("log.json", "r") as f:
         visitLogs = f.read()
 
-    body = f"answers: {answers}\n\nvisitLogs: {visitLogs}"
+    body = f"{visitLogs}"
     send_email(subject, body)
 
     # print("Starting to read or write to test log file...")
