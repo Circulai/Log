@@ -3,7 +3,7 @@ name: sending email
 on:
   push:
     branches:
-      - mainX 
+      - main 
   repository_dispatch: 
 
 jobs:
